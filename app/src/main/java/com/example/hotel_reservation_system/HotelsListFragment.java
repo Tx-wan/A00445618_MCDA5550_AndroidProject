@@ -5,23 +5,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 
 public class HotelsListFragment extends Fragment implements ItemClickListener {
 
@@ -29,7 +24,32 @@ public class HotelsListFragment extends Fragment implements ItemClickListener {
     TextView headingTextView;
     ProgressBar progressBar;
     List<HotelListData> userListResponseData;
-    HotelList userResponseData;
+ //   HotelListResponse userResponseData;
+
+    HotelListViewModel hotelListViewModel;
+    HotelListSearchAdapter hotelListSearchAdapter;
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        hotelListSearchAdapter = new HotelListSearchAdapter();
+
+        hotelListViewModel = ViewModelProviders.of(this).get(HotelListViewModel.class);
+        hotelListViewModel.init();
+        hotelListViewModel.searchHotelList();
+
+        hotelListViewModel.getHotelListLiveData().observe(this, new Observer<HotelListResponse>() {
+            @Override
+            public void onChanged(HotelListResponse hotelListResponse) {
+                if(hotelListResponse != null) {
+                    userListResponseData = hotelListResponse.getHotelListData();
+                    hotelListSearchAdapter.setHotelListData(hotelListResponse.getHotelListData());
+                }
+            }
+        });
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,30 +72,52 @@ public class HotelsListFragment extends Fragment implements ItemClickListener {
         headingTextView.setText("Welcome user, displaying hotel for " + numberOfGuests + " guests staying from " + checkInDate +
                 " to " + checkOutDate);
 
+        progressBar.setVisibility(View.VISIBLE);
+
+        RecyclerView recyclerView = view.findViewById(R.id.hotel_list_recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        /*hotelListViewModel.getHotelListLiveData().observe(getViewLifecycleOwner(), hotelList -> {
+            HotelListResponse a = hotelList;
+            if(hotelList!= null) {
+                hotelListSearchAdapter.setHotelListData(hotelList.getHotelListData());
+            }
+        });*/
+
+        recyclerView.setAdapter(hotelListSearchAdapter);
+        hotelListSearchAdapter.setClickListener(this);
+
+        progressBar.setVisibility(View.GONE);
+
+
 
         /*ArrayList<HotelListData> hotelListData = initHotelListData();
         RecyclerView recyclerView = view.findViewById(R.id.hotel_list_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         HotelListAdapter hotelListAdapter = new HotelListAdapter(getActivity(), hotelListData);
         recyclerView.setAdapter(hotelListAdapter);*/
-        getHotelsListsData();
+        //getHotelsListsData();
     }
 
-    private void getHotelsListsData() {
+/*    private void getHotelsListsData() {
 
         progressBar.setVisibility(View.VISIBLE);
+
+        //
+        //hotelListViewModel = new ViewModelProviders.of(this).get(HotelListViewModel.class);
+
         Api.getClient().getHotelsLists(new Callback<HotelList>() {
             @Override
             public void success(HotelList userListResponses, Response response) {
                 userResponseData = userListResponses;
 
                 progressBar.setVisibility(View.GONE);
-                /*RecyclerView recyclerView = view.findViewById(R.id.hotel_list_recyclerView);
+                *//*RecyclerView recyclerView = view.findViewById(R.id.hotel_list_recyclerView);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 HotelListAdapter hotelListAdapter = new HotelListAdapter(getActivity(), userResponseData.getHotelListData());
                 recyclerView.setAdapter(hotelListAdapter);
 
-                hotelListAdapter.setClickListener(this);*/
+                hotelListAdapter.setClickListener(this);*//*
 
                 setupRecyclerView();
 
@@ -86,19 +128,22 @@ public class HotelsListFragment extends Fragment implements ItemClickListener {
                 Toast.makeText(getActivity(), error.toString(), Toast.LENGTH_LONG).show();
             }
         });
-    }
+    }*/
 
-    private void setupRecyclerView() {
+ /*   private void setupRecyclerView() {
         RecyclerView recyclerView = view.findViewById(R.id.hotel_list_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        HotelListAdapter hotelListAdapter = new HotelListAdapter(getActivity(), userResponseData.getHotelListData());
+        *//*HotelListAdapter hotelListAdapter = new HotelListAdapter(getActivity(), userResponseData.getHotelListData());
+        recyclerView.setAdapter(hotelListAdapter);
+        hotelListAdapter.setClickListener(this);*//*
+        //HotelListSearchAdapter hotelListAdapter = new HotelListSearchAdapter(getActivity(), userResponseData.getHotelListData());
         recyclerView.setAdapter(hotelListAdapter);
         hotelListAdapter.setClickListener(this);
     }
-
+*/
     @Override
     public void onClick(View view, int position) {
-        HotelListData hotelListData = userResponseData.getHotelListData().get(position);
+        HotelListData hotelListData = userListResponseData.get(position);
 
         String hotelName = hotelListData.getHotelName();
         String price = hotelListData.getPrice();

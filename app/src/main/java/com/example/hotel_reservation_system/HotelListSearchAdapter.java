@@ -1,6 +1,5 @@
 package com.example.hotel_reservation_system;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,27 +10,40 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.ViewHolder> {
+public class HotelListSearchAdapter extends RecyclerView.Adapter<HotelListSearchAdapter.ViewHolder> {
 
+    //
+    private List<HotelListResponse> hotelListResponses;
     private List<HotelListData> hotelListData;
     private LayoutInflater layoutInflater;
-    //
     private ItemClickListener clickListener;
 
-    HotelListAdapter(Context context, List<HotelListData> hotelListData){
-      this.layoutInflater = LayoutInflater.from(context);
-      this.hotelListData = hotelListData;
-    }
+    /*HotelListSearchAdapter(Context context, List<HotelListData> hotelListData){
+        this.layoutInflater = LayoutInflater.from(context);
+        this.hotelListData = hotelListData;
+    }*/
 
     @NonNull
     @Override
-    public HotelListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = layoutInflater.inflate(R.layout.hotel_list_layout, parent, false);
-        return new ViewHolder(view);
+    public HotelListSearchAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = layoutInflater.from(parent.getContext()).
+                inflate(R.layout.hotel_list_layout, parent, false);
+        return new HotelListSearchAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HotelListAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull HotelListSearchAdapter.ViewHolder holder, int position) {
+        /*for(HotelListData hotelListData: hotelLists.get(position).getHotelListData()) {
+            String hotelName = hotelListData.getHotelName();
+            String hotelPrice = hotelListData.getPrice();
+            String hotelAvailability = hotelListData.getAvailability();
+
+            // set up the text
+            holder.hotelName.setText(hotelName);
+            holder.hotelAvailability.setText(hotelAvailability);
+            holder.hotelPrice.setText(hotelPrice);
+        }*/
+
         String hotelName = hotelListData.get(position).getHotelName();
         String hotelPrice = hotelListData.get(position).getPrice();
         String hotelAvailability = hotelListData.get(position).getAvailability();
@@ -42,6 +54,7 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.View
         holder.hotelPrice.setText(hotelPrice);
     }
 
+
     @Override
     public int getItemCount() {
         if (hotelListData != null) {
@@ -50,7 +63,26 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.View
             return 0;
         }
     }
+    /*public int getItemCount() {
+        if (hotelListData != null) {
+            return hotelListData.size();
+        } else {
+            return 0;
+        }
+    }*/
 
+    public void setHotelListData(List<HotelListData> hotelLists) {
+        this.hotelListData = hotelLists;
+        notifyDataSetChanged();
+    }
+
+    /*public void setHotelListData(List<HotelListData> hotelListData) {
+        this.hotelListData = hotelListData;
+        notifyDataSetChanged();
+    }*/
+
+
+    //
     public void setClickListener(ItemClickListener itemClickListener) {
         this.clickListener = itemClickListener;
     }
@@ -75,5 +107,3 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.View
         }
     }
 }
-
-
