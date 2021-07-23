@@ -1,4 +1,4 @@
-package com.example.hotel_reservation_system;
+package com.example.hotel_reservation_system.view;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+
+import com.example.hotel_reservation_system.R;
 
 import org.jetbrains.annotations.NotNull;
 

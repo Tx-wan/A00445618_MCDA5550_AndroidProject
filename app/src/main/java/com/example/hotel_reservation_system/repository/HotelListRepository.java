@@ -1,7 +1,10 @@
-package com.example.hotel_reservation_system;
+package com.example.hotel_reservation_system.repository;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+
+import com.example.hotel_reservation_system.response.HotelListResponse;
+import com.example.hotel_reservation_system.api.HotelListSearchService;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;

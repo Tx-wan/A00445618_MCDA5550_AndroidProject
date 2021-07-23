@@ -1,4 +1,4 @@
-package com.example.hotel_reservation_system;
+package com.example.hotel_reservation_system.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.hotel_reservation_system.view.ItemClickListener;
+import com.example.hotel_reservation_system.R;
+import com.example.hotel_reservation_system.model.HotelListModel;
 
 import java.util.List;
 

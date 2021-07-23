@@ -1,4 +1,4 @@
-package com.example.hotel_reservation_system;
+package com.example.hotel_reservation_system.view;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,6 +15,12 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.hotel_reservation_system.R;
+import com.example.hotel_reservation_system.adapter.HotelListSearchAdapter;
+import com.example.hotel_reservation_system.response.HotelListResponse;
+import com.example.hotel_reservation_system.model.HotelListModel;
+import com.example.hotel_reservation_system.viewmodel.HotelListViewModel;
 
 import java.util.List;
 

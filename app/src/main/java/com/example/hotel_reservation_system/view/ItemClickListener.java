@@ -1,4 +1,4 @@
-package com.example.hotel_reservation_system;
+package com.example.hotel_reservation_system.view;
 
 import android.view.View;
 

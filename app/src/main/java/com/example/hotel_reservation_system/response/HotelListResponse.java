@@ -1,5 +1,6 @@
-package com.example.hotel_reservation_system;
+package com.example.hotel_reservation_system.response;
 
+import com.example.hotel_reservation_system.model.HotelListModel;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

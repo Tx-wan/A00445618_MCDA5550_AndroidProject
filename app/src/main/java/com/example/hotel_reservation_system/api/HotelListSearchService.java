@@ -1,4 +1,6 @@
-package com.example.hotel_reservation_system;
+package com.example.hotel_reservation_system.api;
+
+import com.example.hotel_reservation_system.response.HotelListResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

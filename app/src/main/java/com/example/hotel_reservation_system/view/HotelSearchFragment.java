@@ -1,4 +1,4 @@
-package com.example.hotel_reservation_system;
+package com.example.hotel_reservation_system.view;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -16,6 +16,8 @@ import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.example.hotel_reservation_system.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

@@ -7,6 +7,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.hotel_reservation_system.view.HotelSearchFragment;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override

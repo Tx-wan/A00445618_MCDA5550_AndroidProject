@@ -1,10 +1,13 @@
-package com.example.hotel_reservation_system;
+package com.example.hotel_reservation_system.viewmodel;
 
 import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+
+import com.example.hotel_reservation_system.repository.HotelListRepository;
+import com.example.hotel_reservation_system.response.HotelListResponse;
 
 import org.jetbrains.annotations.NotNull;
 
