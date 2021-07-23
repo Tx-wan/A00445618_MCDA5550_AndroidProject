@@ -9,13 +9,13 @@ public class HotelListResponse {
 
     @SerializedName("hotels_list")
     @Expose
-    List<HotelListData> hotels_list;
+    List<HotelListModel> hotels_list;
 
-    public void setHotelListData(List<HotelListData> hotelListData) {
+    public void setHotelListData(List<HotelListModel> hotelListData) {
         this.hotels_list = hotelListData;
     }
 
-    public List<HotelListData> getHotelListData() {
+    public List<HotelListModel> getHotelListData() {
         return hotels_list;
     }
 }

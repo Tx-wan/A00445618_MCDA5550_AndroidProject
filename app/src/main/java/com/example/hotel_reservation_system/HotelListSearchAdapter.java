@@ -14,7 +14,7 @@ public class HotelListSearchAdapter extends RecyclerView.Adapter<HotelListSearch
 
     //
     private List<HotelListResponse> hotelListResponses;
-    private List<HotelListData> hotelListData;
+    private List<HotelListModel> hotelListData;
     private LayoutInflater layoutInflater;
     private ItemClickListener clickListener;
 
@@ -71,7 +71,7 @@ public class HotelListSearchAdapter extends RecyclerView.Adapter<HotelListSearch
         }
     }*/
 
-    public void setHotelListData(List<HotelListData> hotelLists) {
+    public void setHotelListData(List<HotelListModel> hotelLists) {
         this.hotelListData = hotelLists;
         notifyDataSetChanged();
     }

@@ -23,7 +23,7 @@ public class HotelsListFragment extends Fragment implements ItemClickListener {
     View view;
     TextView headingTextView;
     ProgressBar progressBar;
-    List<HotelListData> userListResponseData;
+    List<HotelListModel> userListResponseData;
  //   HotelListResponse userResponseData;
 
     HotelListViewModel hotelListViewModel;
@@ -147,11 +147,11 @@ public class HotelsListFragment extends Fragment implements ItemClickListener {
 */
     @Override
     public void onClick(View view, int position) {
-        HotelListData hotelListData = userListResponseData.get(position);
+        HotelListModel hotelListModel = userListResponseData.get(position);
 
-        String hotelName = hotelListData.getHotelName();
-        String price = hotelListData.getPrice();
-        String availability = hotelListData.getAvailability();
+        String hotelName = hotelListModel.getHotelName();
+        String price = hotelListModel.getPrice();
+        String availability = hotelListModel.getAvailability();
 
         Bundle bundle = new Bundle();
         bundle.putString("hotel name", hotelName);

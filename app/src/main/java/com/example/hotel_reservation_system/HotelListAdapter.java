@@ -13,12 +13,12 @@ import java.util.List;
 
 public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.ViewHolder> {
 
-    private List<HotelListData> hotelListData;
+    private List<HotelListModel> hotelListData;
     private LayoutInflater layoutInflater;
     //
     private ItemClickListener clickListener;
 
-    HotelListAdapter(Context context, List<HotelListData> hotelListData){
+    HotelListAdapter(Context context, List<HotelListModel> hotelListData){
       this.layoutInflater = LayoutInflater.from(context);
       this.hotelListData = hotelListData;
     }
