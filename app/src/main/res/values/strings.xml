@@ -1,4 +1,20 @@
 <resources>
     <string name="app_name">Hotel_Reservation_system</string>
     <string name="welcome_text">Welcome to Hotel Reservation System</string>
+    <string name="hotel_name_label">Hotel Name:</string>
+    <string name="checkin_label">CheckIn:</string>
+    <string name="checkout_label">CheckOut:</string>
+    <string name="price_label">Price:</string>
+    <string name="guests_label">Guests</string>
+    <string name="first_name_label">First Name:</string>
+    <string name="last_name_label">Last Name:</string>
+    <string name="gender_label">Gender:</string>
+    <string name="age_label">Age:</string>
+    <string name="your_first_name">Your First Name</string>
+    <string name="your_last_name">Your Last Name</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="unidentified">Unidentified</string>
+    <string name="your_age">Your Age</string>
+    <string name="confirm_reservation">CONFIRM RESERVATION</string>
 </resources>
