@@ -51,6 +51,10 @@ public class HotelsListFragment extends Fragment implements ItemClickListener {
         });
     }
 
+    String checkInDate;
+    String checkOutDate;
+    String numberOfGuests;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -65,9 +69,9 @@ public class HotelsListFragment extends Fragment implements ItemClickListener {
         headingTextView = view.findViewById(R.id.heading_text_view);
         progressBar = view.findViewById(R.id.progress_bar);
 
-        String checkInDate = getArguments().getString("check in date");
-        String checkOutDate = getArguments().getString("check out date");
-        String numberOfGuests = getArguments().getString("number of guests");
+        checkInDate = getArguments().getString("check in date");
+        checkOutDate = getArguments().getString("check out date");
+        numberOfGuests = getArguments().getString("number of guests");
 
         headingTextView.setText("Welcome user, displaying hotel for " + numberOfGuests + " guests staying from " + checkInDate +
                 " to " + checkOutDate);
@@ -152,7 +156,9 @@ public class HotelsListFragment extends Fragment implements ItemClickListener {
         Bundle bundle = new Bundle();
         bundle.putString("hotel name", hotelName);
         bundle.putString("hotel price", price);
-        bundle.putString("hotel availability", availability);
+        bundle.putString("checkIn date", checkInDate);
+        bundle.putString("checkOut date", checkOutDate);
+        bundle.putString("number of guests", numberOfGuests);
 
         HotelGuestListDetailsFragment hotelGuestListDetailsFragment = new HotelGuestListDetailsFragment();
         hotelGuestListDetailsFragment.setArguments(bundle);
