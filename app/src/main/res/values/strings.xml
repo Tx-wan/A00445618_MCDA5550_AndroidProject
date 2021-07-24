@@ -17,4 +17,5 @@
     <string name="unidentified">Unidentified</string>
     <string name="your_age">Your Age</string>
     <string name="confirm_reservation">CONFIRM RESERVATION</string>
+    <string name="api_url">"http://HotelReservationAPI-tx.us-east-1.elasticbeanstalk.com/"</string>
 </resources>

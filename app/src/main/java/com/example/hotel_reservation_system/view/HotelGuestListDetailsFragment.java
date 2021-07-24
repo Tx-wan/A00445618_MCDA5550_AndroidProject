@@ -9,15 +9,28 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.hotel_reservation_system.R;
+import com.example.hotel_reservation_system.model.GuestModel;
+import com.example.hotel_reservation_system.model.ReservationModel;
+import com.example.hotel_reservation_system.repository.ReservationReposistory;
 
+import org.apache.http.util.EntityUtils;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HotelGuestListDetailsFragment extends Fragment {
 
@@ -91,15 +104,45 @@ public class HotelGuestListDetailsFragment extends Fragment {
         }
 
         reservationButton.setOnClickListener(v -> {
+            String firstName, lastName, age, gender;
+            EditText firstNameEditText, lastNameEditText, ageEditText;
+            RadioGroup genderRadioGroup;
+
             Bundle bundle = new Bundle();
+
             bundle.putString("hotel name", hotelName);
-            bundle.putString("check in date", checkInDate);
-            bundle.putString("check out date", checkOutDate);
+            bundle.putString("checkIn date", checkInDate);
+            bundle.putString("checkOut date", checkOutDate);
             bundle.putString("number of guests", numberOfGuests);
 
+            for (int i= 0; i<guestNums; i++) {
+                firstNameEditText = view.findViewById(firstNamesId[i]);
+                lastNameEditText = view.findViewById(lastNameId[i]);
+                ageEditText = view.findViewById(ageId[i]);
+                genderRadioGroup = view.findViewById(genderId[i]);
+
+                firstName = firstNameEditText.getText().toString();
+                lastName = lastNameEditText.getText().toString();
+                age = ageEditText.getText().toString();
+
+                gender = getButtonText(genderRadioGroup);
+
+                bundle.putString("first name" + i, firstName);
+                bundle.putString("checkIn date" + i, lastName);
+                bundle.putString("checkOut date" + i, gender);
+                bundle.putString("number of guests" + i, age);
+            }
+
+            ReservationConfirmationFragment reservationConfirmationFragment = new ReservationConfirmationFragment();
+            reservationConfirmationFragment.setArguments(bundle);
+
+            FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+            fragmentTransaction.remove(HotelGuestListDetailsFragment.this);
+            fragmentTransaction.replace(R.id.main_layout, reservationConfirmationFragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+
         });
-
-
     }
 
     private String getButtonText(RadioGroup radioGroup) {
@@ -150,6 +193,11 @@ public class HotelGuestListDetailsFragment extends Fragment {
 
         RadioGroup genderRadioGroup = view.findViewById(R.id.hotel_guest_gender_radio_group2);
 
+        firstNamesId[1] = R.id.hotel_guest_first_name_edit_text2;
+        lastNameId[1] = R.id.hotel_guest_last_name_edit_text2;
+        ageId[1] = R.id.hotel_guest_age_edit_text2;
+        genderId[1] = R.id.hotel_guest_gender_radio_group2;
+
         firstNameLabelTextView.setVisibility(View.VISIBLE);
         lastNameLabelTextView.setVisibility(View.VISIBLE);
         genderLabelTextView.setVisibility(View.VISIBLE);
@@ -175,6 +223,11 @@ public class HotelGuestListDetailsFragment extends Fragment {
         EditText ageEditText = view.findViewById(R.id.hotel_guest_age_edit_text3);
 
         RadioGroup genderRadioGroup = view.findViewById(R.id.hotel_guest_gender_radio_group3);
+
+        firstNamesId[2] = R.id.hotel_guest_first_name_edit_text3;
+        lastNameId[2] = R.id.hotel_guest_last_name_edit_text3;
+        ageId[2] = R.id.hotel_guest_age_edit_text3;
+        genderId[2] = R.id.hotel_guest_gender_radio_group3;
 
         firstNameLabelTextView.setVisibility(View.VISIBLE);
         lastNameLabelTextView.setVisibility(View.VISIBLE);
@@ -202,6 +255,11 @@ public class HotelGuestListDetailsFragment extends Fragment {
 
         RadioGroup genderRadioGroup = view.findViewById(R.id.hotel_guest_gender_radio_group4);
 
+        firstNamesId[3] = R.id.hotel_guest_first_name_edit_text4;
+        lastNameId[3] = R.id.hotel_guest_last_name_edit_text4;
+        ageId[3] = R.id.hotel_guest_age_edit_text4;
+        genderId[3] = R.id.hotel_guest_gender_radio_group4;
+
         firstNameLabelTextView.setVisibility(View.VISIBLE);
         lastNameLabelTextView.setVisibility(View.VISIBLE);
         genderLabelTextView.setVisibility(View.VISIBLE);
@@ -227,6 +285,11 @@ public class HotelGuestListDetailsFragment extends Fragment {
         EditText ageEditText = view.findViewById(R.id.hotel_guest_age_edit_text5);
 
         RadioGroup genderRadioGroup = view.findViewById(R.id.hotel_guest_gender_radio_group5);
+
+        firstNamesId[4] = R.id.hotel_guest_first_name_edit_text5;
+        lastNameId[4] = R.id.hotel_guest_last_name_edit_text5;
+        ageId[4] = R.id.hotel_guest_age_edit_text5;
+        genderId[4] = R.id.hotel_guest_gender_radio_group5;
 
         firstNameLabelTextView.setVisibility(View.VISIBLE);
         lastNameLabelTextView.setVisibility(View.VISIBLE);
