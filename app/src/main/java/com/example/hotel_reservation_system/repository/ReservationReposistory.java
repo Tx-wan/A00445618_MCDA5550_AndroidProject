@@ -18,15 +18,11 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class ReservationReposistory {
 
-    //private static final String HOTEL_LIST_SEARCH_SERVICE_BASE_URL = "http://localhost:8080/";
-
     private static final String HOTEL_LIST_SEARCH_SERVICE_BASE_URL = "http://HotelReservationAPI-tx.us-east-1.elasticbeanstalk.com/";
 
     private ReservationConfirmService reservationConfirmService;
 
     private static ReservationReposistory instance;
-
-    OkHttpClient client;
 
     public static ReservationReposistory getInstance() {
         if (instance == null) {
@@ -39,7 +35,7 @@ public class ReservationReposistory {
 
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.level(HttpLoggingInterceptor.Level.BODY);
-        client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
 
         reservationConfirmService = new retrofit2.Retrofit.Builder()
                 .baseUrl(HOTEL_LIST_SEARCH_SERVICE_BASE_URL)
@@ -53,25 +49,5 @@ public class ReservationReposistory {
     public ReservationConfirmService getReservationConfirmService() {
         return reservationConfirmService;
     }
-
-    public OkHttpClient getClient() {
-        return client;
-    }
-
-/*    public void setReservationConfirm () {
-        reservationConfirmService.createReservationConfirmation(reservationListLiveData).enqueue(new Callback<HotelListResponse>() {
-            @Override
-            public void onResponse(Call<HotelListResponse> call, Response<HotelListResponse> response) {
-                if (response.body() != null) {
-                    reservationListLiveData.postValue(response.body());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<HotelListResponse> call, Throwable t) {
-                reservationConfirmService.postValue(null);
-            }
-        });
-    }*/
 
 }

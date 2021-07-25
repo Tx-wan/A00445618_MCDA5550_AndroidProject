@@ -15,7 +15,6 @@ public class HotelListViewModel extends AndroidViewModel {
 
     private HotelListRepository hotelListRepository;
     private LiveData<HotelListResponse> hotelListLiveData;
-  //  private MutableLiveData<HotelList> hotelListMutableLiveData;
 
     public HotelListViewModel(@NonNull @NotNull Application application) {
         super(application);

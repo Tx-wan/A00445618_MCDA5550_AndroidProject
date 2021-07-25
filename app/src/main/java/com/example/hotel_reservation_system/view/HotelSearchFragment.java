@@ -1,6 +1,6 @@
 package com.example.hotel_reservation_system.view;
 
-import android.app.AlertDialog;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,7 +18,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.hotel_reservation_system.MainActivity;
 import com.example.hotel_reservation_system.R;
 
 import java.text.SimpleDateFormat;
@@ -34,8 +32,6 @@ public class HotelSearchFragment extends Fragment {
     Button confirmSearchButton, searchButton, retrieveButton, clearButton;
     DatePicker checkInDatePicker, checkOutDatePicker;
     String checkInDate, checkOutDate, numberOfGuests, guestName;
-
-    private AlertDialog alert = null;
 
     SharedPreferences sharedPreferences;
     public static final String myPreference = "myPref";
@@ -70,29 +66,26 @@ public class HotelSearchFragment extends Fragment {
 
         titleTextView.setText(R.string.welcome_text);
 
-        confirmSearchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkInDate = getDateFromCalendar(checkInDatePicker);
-                checkOutDate = getDateFromCalendar(checkOutDatePicker);
-                numberOfGuests = guestsCountEditText.getText().toString();
-                guestName = nameEditText.getText().toString();
+        confirmSearchButton.setOnClickListener(v -> {
+            checkInDate = getDateFromCalendar(checkInDatePicker);
+            checkOutDate = getDateFromCalendar(checkOutDatePicker);
+            numberOfGuests = guestsCountEditText.getText().toString();
+            guestName = nameEditText.getText().toString();
 
-                int check = checkForm(guestName, numberOfGuests);
-                if (check == 1) {
-                    searchTextConfirmationTextView.setText("Please input name and number of guests.");
-                }else if ( check == 2) {
-                    searchTextConfirmationTextView.setText("The maximum capacity of room is 5, please place one order with less than 6 guests.");
-                } else {
-                    sharedPreferences = getActivity().getSharedPreferences(myPreference, Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString(name, guestName);
-                    editor.putString(guestsCount, numberOfGuests);
-                    editor.commit();
+            int check = checkForm(guestName, numberOfGuests);
+            if (check == 1) {
+                searchTextConfirmationTextView.setText("Please input name and number of guests.");
+            }else if ( check == 2) {
+                searchTextConfirmationTextView.setText("The maximum capacity of room is 5, please place one order with less than 6 guests.");
+            } else {
+                sharedPreferences = getActivity().getSharedPreferences(myPreference, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(name, guestName);
+                editor.putString(guestsCount, numberOfGuests);
+                editor.commit();
 
-                    searchTextConfirmationTextView.setText("Dear Customer, Your check in date is " + checkInDate + ", " +
-                            "your checkout date is " + checkOutDate + ".The number of guests are " + numberOfGuests);
-                }
+                searchTextConfirmationTextView.setText("Dear Customer, Your check in date is " + checkInDate + ", " +
+                        "your checkout date is " + checkOutDate + ".The number of guests are " + numberOfGuests);
             }
         });
 
@@ -139,13 +132,10 @@ public class HotelSearchFragment extends Fragment {
             }
         });
 
-        clearButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                guestsCountEditText.setText("");
-                nameEditText.setText("");
-                searchTextConfirmationTextView.setText("");
-            }
+        clearButton.setOnClickListener(v -> {
+            guestsCountEditText.setText("");
+            nameEditText.setText("");
+            searchTextConfirmationTextView.setText("");
         });
     }
 

@@ -30,7 +30,6 @@ public class HotelsListFragment extends Fragment implements ItemClickListener {
     TextView headingTextView;
     ProgressBar progressBar;
     List<HotelListModel> userListResponseData;
- //   HotelListResponse userResponseData;
 
     HotelListViewModel hotelListViewModel;
     HotelListSearchAdapter hotelListSearchAdapter;
@@ -87,70 +86,12 @@ public class HotelsListFragment extends Fragment implements ItemClickListener {
         RecyclerView recyclerView = view.findViewById(R.id.hotel_list_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        /*hotelListViewModel.getHotelListLiveData().observe(getViewLifecycleOwner(), hotelList -> {
-            HotelListResponse a = hotelList;
-            if(hotelList!= null) {
-                hotelListSearchAdapter.setHotelListData(hotelList.getHotelListData());
-            }
-        });*/
-
         recyclerView.setAdapter(hotelListSearchAdapter);
         hotelListSearchAdapter.setClickListener(this);
 
         progressBar.setVisibility(View.GONE);
-
-
-
-        /*ArrayList<HotelListData> hotelListData = initHotelListData();
-        RecyclerView recyclerView = view.findViewById(R.id.hotel_list_recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        HotelListAdapter hotelListAdapter = new HotelListAdapter(getActivity(), hotelListData);
-        recyclerView.setAdapter(hotelListAdapter);*/
-        //getHotelsListsData();
     }
 
-/*    private void getHotelsListsData() {
-
-        progressBar.setVisibility(View.VISIBLE);
-
-        //
-        //hotelListViewModel = new ViewModelProviders.of(this).get(HotelListViewModel.class);
-
-        Api.getClient().getHotelsLists(new Callback<HotelList>() {
-            @Override
-            public void success(HotelList userListResponses, Response response) {
-                userResponseData = userListResponses;
-
-                progressBar.setVisibility(View.GONE);
-                *//*RecyclerView recyclerView = view.findViewById(R.id.hotel_list_recyclerView);
-                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                HotelListAdapter hotelListAdapter = new HotelListAdapter(getActivity(), userResponseData.getHotelListData());
-                recyclerView.setAdapter(hotelListAdapter);
-
-                hotelListAdapter.setClickListener(this);*//*
-
-                setupRecyclerView();
-
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                Toast.makeText(getActivity(), error.toString(), Toast.LENGTH_LONG).show();
-            }
-        });
-    }*/
-
- /*   private void setupRecyclerView() {
-        RecyclerView recyclerView = view.findViewById(R.id.hotel_list_recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        *//*HotelListAdapter hotelListAdapter = new HotelListAdapter(getActivity(), userResponseData.getHotelListData());
-        recyclerView.setAdapter(hotelListAdapter);
-        hotelListAdapter.setClickListener(this);*//*
-        //HotelListSearchAdapter hotelListAdapter = new HotelListSearchAdapter(getActivity(), userResponseData.getHotelListData());
-        recyclerView.setAdapter(hotelListAdapter);
-        hotelListAdapter.setClickListener(this);
-    }
-*/
     @Override
     public void onClick(View view, int position) {
         HotelListModel hotelListModel = userListResponseData.get(position);

@@ -17,16 +17,9 @@ import java.util.List;
 
 public class HotelListSearchAdapter extends RecyclerView.Adapter<HotelListSearchAdapter.ViewHolder> {
 
-    //
-    private List<HotelListResponse> hotelListResponses;
     private List<HotelListModel> hotelListData;
     private LayoutInflater layoutInflater;
     private ItemClickListener clickListener;
-
-    /*HotelListSearchAdapter(Context context, List<HotelListData> hotelListData){
-        this.layoutInflater = LayoutInflater.from(context);
-        this.hotelListData = hotelListData;
-    }*/
 
     @NonNull
     @Override
@@ -38,17 +31,6 @@ public class HotelListSearchAdapter extends RecyclerView.Adapter<HotelListSearch
 
     @Override
     public void onBindViewHolder(@NonNull HotelListSearchAdapter.ViewHolder holder, int position) {
-        /*for(HotelListData hotelListData: hotelLists.get(position).getHotelListData()) {
-            String hotelName = hotelListData.getHotelName();
-            String hotelPrice = hotelListData.getPrice();
-            String hotelAvailability = hotelListData.getAvailability();
-
-            // set up the text
-            holder.hotelName.setText(hotelName);
-            holder.hotelAvailability.setText(hotelAvailability);
-            holder.hotelPrice.setText(hotelPrice);
-        }*/
-
         String hotelName = hotelListData.get(position).getHotelName();
         String hotelPrice = hotelListData.get(position).getPrice();
         String hotelAvailability = hotelListData.get(position).getAvailability();
@@ -68,26 +50,12 @@ public class HotelListSearchAdapter extends RecyclerView.Adapter<HotelListSearch
             return 0;
         }
     }
-    /*public int getItemCount() {
-        if (hotelListData != null) {
-            return hotelListData.size();
-        } else {
-            return 0;
-        }
-    }*/
 
     public void setHotelListData(List<HotelListModel> hotelLists) {
         this.hotelListData = hotelLists;
         notifyDataSetChanged();
     }
 
-    /*public void setHotelListData(List<HotelListData> hotelListData) {
-        this.hotelListData = hotelListData;
-        notifyDataSetChanged();
-    }*/
-
-
-    //
     public void setClickListener(ItemClickListener itemClickListener) {
         this.clickListener = itemClickListener;
     }
