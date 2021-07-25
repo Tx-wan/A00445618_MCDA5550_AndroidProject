@@ -1,5 +1,6 @@
 package com.example.hotel_reservation_system.view;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,6 +19,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.hotel_reservation_system.MainActivity;
 import com.example.hotel_reservation_system.R;
 
 import java.text.SimpleDateFormat;
@@ -31,6 +34,8 @@ public class HotelSearchFragment extends Fragment {
     Button confirmSearchButton, searchButton, retrieveButton, clearButton;
     DatePicker checkInDatePicker, checkOutDatePicker;
     String checkInDate, checkOutDate, numberOfGuests, guestName;
+
+    private AlertDialog alert = null;
 
     SharedPreferences sharedPreferences;
     public static final String myPreference = "myPref";
@@ -73,37 +78,52 @@ public class HotelSearchFragment extends Fragment {
                 numberOfGuests = guestsCountEditText.getText().toString();
                 guestName = nameEditText.getText().toString();
 
-                sharedPreferences = getActivity().getSharedPreferences(myPreference, Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString(name, guestName);
-                editor.putString(guestsCount, numberOfGuests);
-                editor.commit();
+                int check = checkForm(guestName, numberOfGuests);
+                if (check == 1) {
+                    searchTextConfirmationTextView.setText("Please input name and number of guests.");
+                }else if ( check == 2) {
+                    searchTextConfirmationTextView.setText("The maximum capacity of room is 5, please place one order with less than 6 guests.");
+                } else {
+                    sharedPreferences = getActivity().getSharedPreferences(myPreference, Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString(name, guestName);
+                    editor.putString(guestsCount, numberOfGuests);
+                    editor.commit();
 
-                searchTextConfirmationTextView.setText("Dear Customer, Your check in date is " + checkInDate + ", " +
-                        "your checkout date is " + checkOutDate + ".The number of guests are " + numberOfGuests);
+                    searchTextConfirmationTextView.setText("Dear Customer, Your check in date is " + checkInDate + ", " +
+                            "your checkout date is " + checkOutDate + ".The number of guests are " + numberOfGuests);
+                }
             }
         });
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkInDate = getDateFromCalendar(checkInDatePicker);
-                checkOutDate = getDateFromCalendar(checkOutDatePicker);
                 numberOfGuests = guestsCountEditText.getText().toString();
+                guestName = nameEditText.getText().toString();
+                int check = checkForm(guestName, numberOfGuests);
+                if (check == 1) {
+                    searchTextConfirmationTextView.setText("Please input name and number of guests.");
+                }else if ( check == 2) {
+                    searchTextConfirmationTextView.setText("The maximum capacity of room is 5, please place one order with less than 6 guests.");
+                } else {
+                    checkInDate = getDateFromCalendar(checkInDatePicker);
+                    checkOutDate = getDateFromCalendar(checkOutDatePicker);
 
-                Bundle bundle = new Bundle();
-                bundle.putString("check in date", checkInDate);
-                bundle.putString("check out date", checkOutDate);
-                bundle.putString("number of guests", numberOfGuests);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("check in date", checkInDate);
+                    bundle.putString("check out date", checkOutDate);
+                    bundle.putString("number of guests", numberOfGuests);
 
-                HotelsListFragment hotelsListFragment = new HotelsListFragment();
-                hotelsListFragment.setArguments(bundle);
+                    HotelsListFragment hotelsListFragment = new HotelsListFragment();
+                    hotelsListFragment.setArguments(bundle);
 
-                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.main_layout, hotelsListFragment);
-                fragmentTransaction.remove(HotelSearchFragment.this);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                    FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.main_layout, hotelsListFragment);
+                    fragmentTransaction.remove(HotelSearchFragment.this);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                }
             }
         });
 
@@ -141,6 +161,22 @@ public class HotelSearchFragment extends Fragment {
         String formattedDate = simpleDateFormat.format(calendar.getTime());
 
         return formattedDate;
+    }
+
+    private int checkForm(String guestName, String numberOfGuests) {
+        int check = 0;
+
+        if (numberOfGuests == null || numberOfGuests.equals("")) {
+            check = 1;
+        } else if (guestName == null || guestName.equals("")) {
+            check = 1;
+        } else {
+            int num = Integer.parseInt(numberOfGuests.replace("\"", ""));
+            if (num > 5)
+                check = 2;
+        }
+
+        return check;
     }
 
 }
