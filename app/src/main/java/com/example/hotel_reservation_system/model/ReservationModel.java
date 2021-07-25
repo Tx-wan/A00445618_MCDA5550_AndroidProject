@@ -21,7 +21,7 @@ public class ReservationModel {
 
     @SerializedName("guests_list")
     @Expose
-    private List<GuestModel> guestModelList;
+    private List<GuestModel> guestModelList = null;
 
     public ReservationModel(String hotelName, String checkInDate, String checkOutDate, List<GuestModel> guestModelList) {
         this.hotelName = hotelName;

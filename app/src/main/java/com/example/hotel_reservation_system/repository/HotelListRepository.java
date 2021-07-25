@@ -15,6 +15,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HotelListRepository {
 
+    //private static final String HOTEL_LIST_SEARCH_SERVICE_BASE_URL = "http://localhost:8080/";
+
     private static final String HOTEL_LIST_SEARCH_SERVICE_BASE_URL = "http://HotelReservationAPI-tx.us-east-1.elasticbeanstalk.com/";
 
     private HotelListSearchService hotelListSearchService;

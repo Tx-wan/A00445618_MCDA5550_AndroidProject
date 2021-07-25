@@ -128,9 +128,9 @@ public class HotelGuestListDetailsFragment extends Fragment {
                 gender = getButtonText(genderRadioGroup);
 
                 bundle.putString("first name" + i, firstName);
-                bundle.putString("checkIn date" + i, lastName);
-                bundle.putString("checkOut date" + i, gender);
-                bundle.putString("number of guests" + i, age);
+                bundle.putString("last name" + i, lastName);
+                bundle.putString("gender" + i, gender);
+                bundle.putString("age" + i, age);
             }
 
             ReservationConfirmationFragment reservationConfirmationFragment = new ReservationConfirmationFragment();

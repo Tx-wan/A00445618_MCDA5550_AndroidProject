@@ -17,10 +17,15 @@ import com.example.hotel_reservation_system.model.ReservationModel;
 import com.example.hotel_reservation_system.repository.ReservationReposistory;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,6 +37,9 @@ public class ReservationConfirmationFragment extends Fragment {
     ReservationReposistory reservationReposistory;
 
     String hotelName, checkInDate, checkOutDate, numberOfGuests;
+
+    Response<ReservationModel> responseshow;
+    Call<ReservationModel> callshow;
 
     @Nullable
     @Override
@@ -61,9 +69,9 @@ public class ReservationConfirmationFragment extends Fragment {
 
         for (int i= 0; i<guestNums; i++) {
             firstName = getArguments().getString("first name"+i);
-            lastName = getArguments().getString("checkIn date"+i);
-            age = getArguments().getString("checkOut date"+i);
-            gender = getArguments().getString("number of guests"+i);
+            lastName = getArguments().getString("last name"+i);
+            age = getArguments().getString("age"+i);
+            gender = getArguments().getString("gender"+i);
 
             guest = new GuestModel(firstName, lastName, gender,age);
 
@@ -72,19 +80,22 @@ public class ReservationConfirmationFragment extends Fragment {
 
         ReservationModel reservation = new ReservationModel(hotelName, checkInDate, checkOutDate, guestList);
 
-        /*reservationReposistory.getReservationConfirmService().createReservationConfirmation(reservation).enqueue(new Callback<ReservationModel>() {
+        reservationReposistory.getReservationConfirmService().createReservationConfirmation(reservation).enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ReservationModel> call, Response<ReservationModel> response) {
-                Toast.makeText(getContext(), "Reservation " + response.body().getHotelName() + " created", Toast.LENGTH_SHORT).show();
-                String message = response.raw().toString();
-                result.setText(message);
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    String message = new String(response.body().bytes());
+                    result.setText("Success! " +message);
+                } catch ( IOException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
-            public void onFailure(Call<ReservationModel> call, Throwable t) {
-                Toast.makeText(getContext(), "Error Creating Reservation: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                String message = t.getMessage();
+                result.setText("Failed" +message);
             }
-        });*/
-
+        });
     }
 }
