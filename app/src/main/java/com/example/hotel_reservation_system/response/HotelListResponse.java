@@ -6,6 +6,9 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+/*
+* the response is in the format of json. this class is used to analyze response body get with GET method
+* */
 public class HotelListResponse {
 
     @SerializedName("hotels_list")

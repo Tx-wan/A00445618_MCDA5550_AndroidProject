@@ -153,6 +153,10 @@ public class HotelSearchFragment extends Fragment {
         return formattedDate;
     }
 
+    /*
+    * make sure the number of guest and name non-blank
+    * make sure the number of guest is less than 6
+    * */
     private int checkForm(String guestName, String numberOfGuests) {
         int check = 0;
 

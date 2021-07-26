@@ -41,10 +41,14 @@ public class HotelsListFragment extends Fragment implements ItemClickListener {
 
         hotelListSearchAdapter = new HotelListSearchAdapter();
 
+        //initialize the ViewModel and build the connection
         hotelListViewModel = ViewModelProviders.of(this).get(HotelListViewModel.class);
         hotelListViewModel.init();
+
+        //send request and store the data into livedata managed by ViewModel
         hotelListViewModel.searchHotelList();
 
+        //get data from ViewModel and pass it to adapter
         hotelListViewModel.getHotelListLiveData().observe(this, new Observer<HotelListResponse>() {
             @Override
             public void onChanged(HotelListResponse hotelListResponse) {
@@ -83,6 +87,7 @@ public class HotelsListFragment extends Fragment implements ItemClickListener {
 
         progressBar.setVisibility(View.VISIBLE);
 
+        //add data into recycle view
         RecyclerView recyclerView = view.findViewById(R.id.hotel_list_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -98,8 +103,8 @@ public class HotelsListFragment extends Fragment implements ItemClickListener {
 
         String hotelName = hotelListModel.getHotelName();
         String price = hotelListModel.getPrice();
-        String availability = hotelListModel.getAvailability();
 
+        //wrap all data into bundle and pass it to screen3 booking details screen
         Bundle bundle = new Bundle();
         bundle.putString("hotel name", hotelName);
         bundle.putString("hotel price", price);
@@ -110,6 +115,7 @@ public class HotelsListFragment extends Fragment implements ItemClickListener {
         HotelGuestListDetailsFragment hotelGuestListDetailsFragment = new HotelGuestListDetailsFragment();
         hotelGuestListDetailsFragment.setArguments(bundle);
 
+        //call the next screen
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.remove(HotelsListFragment.this);
         fragmentTransaction.replace(R.id.main_layout, hotelGuestListDetailsFragment);

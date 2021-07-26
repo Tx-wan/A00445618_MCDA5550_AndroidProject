@@ -1,21 +1,16 @@
 package com.example.hotel_reservation_system.repository;
 
-import androidx.lifecycle.MutableLiveData;
-
-import com.example.hotel_reservation_system.R;
-import com.example.hotel_reservation_system.api.HotelListSearchService;
 import com.example.hotel_reservation_system.api.ReservationConfirmService;
-import com.example.hotel_reservation_system.model.ReservationModel;
-import com.example.hotel_reservation_system.response.HotelListResponse;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
+/*
+ * this class implement the method of building connection
+ * getting data from API
+ * */
 public class ReservationReposistory {
 
     private static final String HOTEL_LIST_SEARCH_SERVICE_BASE_URL = "http://HotelReservationAPI-tx.us-east-1.elasticbeanstalk.com/";

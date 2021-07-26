@@ -84,6 +84,7 @@ public class HotelGuestListDetailsFragment extends Fragment {
         ageId[0] = R.id.hotel_guest_age_edit_text;
         genderId[0] = R.id.hotel_guest_gender_radio_group;
 
+        //decide how many input box groups we need
         switch (numberOfGuests) {
             case "2":
                 lastItemId = addSecondGuest();
@@ -103,6 +104,10 @@ public class HotelGuestListDetailsFragment extends Fragment {
                 break;
         }
 
+        /*
+        * call the last screen and pass all data to last screen, in case that the system gets error due to network lag.
+        * because the local program runs much faster than the network communications.
+        * */
         reservationButton.setOnClickListener(v -> {
             String firstName, lastName, age, gender;
             EditText firstNameEditText, lastNameEditText, ageEditText;
@@ -181,6 +186,9 @@ public class HotelGuestListDetailsFragment extends Fragment {
         reservationButton.requestLayout();
     }
 
+    /*
+    * add form for no 2 guest
+    * */
     private int addSecondGuest() {
         TextView firstNameLabelTextView = view.findViewById(R.id.hotel_guest_first_name_label_text_view2);
         TextView lastNameLabelTextView = view.findViewById(R.id.hotel_guest_last_name_label_text_view2);
@@ -210,6 +218,9 @@ public class HotelGuestListDetailsFragment extends Fragment {
         return R.id.hotel_guest_age_label_text_view2;
     }
 
+    /*
+     * add form for no 3 guest
+     * */
     private int addThirdGuest() {
         addSecondGuest();
 
@@ -241,6 +252,9 @@ public class HotelGuestListDetailsFragment extends Fragment {
         return R.id.hotel_guest_age_label_text_view3;
     }
 
+    /*
+     * add form for no 4 guest
+     * */
     private int addFourthGuest() {
         addThirdGuest();
 
@@ -272,6 +286,9 @@ public class HotelGuestListDetailsFragment extends Fragment {
         return R.id.hotel_guest_age_label_text_view4;
     }
 
+    /*
+     * add form for no 5 guest
+     * */
     private int addFifthGuest() {
         addFourthGuest();
 

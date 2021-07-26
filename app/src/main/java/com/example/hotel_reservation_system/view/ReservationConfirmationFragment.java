@@ -38,8 +38,6 @@ public class ReservationConfirmationFragment extends Fragment {
 
     String hotelName, checkInDate, checkOutDate, numberOfGuests;
 
-    Response<ReservationModel> responseshow;
-    Call<ReservationModel> callshow;
 
     @Nullable
     @Override
@@ -61,6 +59,7 @@ public class ReservationConfirmationFragment extends Fragment {
         int guestNums;
         String firstName, lastName, age, gender;
 
+        //get all data in bundle
         hotelName = getArguments().getString("hotel name");
         checkInDate = getArguments().getString("checkIn date");
         checkOutDate = getArguments().getString("checkOut date");
@@ -78,12 +77,15 @@ public class ReservationConfirmationFragment extends Fragment {
             guestList.add(guest);
         }
 
+        //create a json file for post body
         ReservationModel reservation = new ReservationModel(hotelName, checkInDate, checkOutDate, guestList);
 
+        //send post request and get response body
         reservationReposistory.getReservationConfirmService().createReservationConfirmation(reservation).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
+                    //print response body on screen
                     String message = new String(response.body().bytes());
                     result.setText("Success! " +message);
                 } catch ( IOException e) {

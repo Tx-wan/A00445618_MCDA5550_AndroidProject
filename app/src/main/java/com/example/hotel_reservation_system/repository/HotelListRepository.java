@@ -13,6 +13,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/*
+* this class implement the method of building connection
+* getting data from API
+* storing data into livedata where can be managed by ViewModel
+* */
 public class HotelListRepository {
 
     private static final String HOTEL_LIST_SEARCH_SERVICE_BASE_URL = "http://HotelReservationAPI-tx.us-east-1.elasticbeanstalk.com/";
